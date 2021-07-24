@@ -1,14 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Home from './pages'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import Home from './pages/index'
+import Survey from './pages/Survey/index'
+import Header from './components/Header/index'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <Router>
+      <Header />
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <Route path="/survey/:questionNumber">
+        <Survey />
+      </Route>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 )
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
