@@ -21,16 +21,17 @@ const freelanceProfiles = [
 ]
 
 const CardContainer = styled.div`
+  margin: 0 auto;
+  background: red;
   display: grid;
   gap: 24px;
-  grid-template-rows: 350px 350px;
+  grid-template-rows: 300px 300px;
   grid-template-columns: repeat(2, 1fr);
 `
 
 function Freelances() {
   return (
     <div>
-      <h1>Freelances 👩‍💻👨‍💻👩‍💻</h1>
       <CardContainer>
         {freelanceProfiles.map((profile, index) => (
           <Card
