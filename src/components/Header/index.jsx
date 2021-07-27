@@ -24,10 +24,12 @@ const Logo = styled.div`
 `
 
 const HeaderWrapper = styled.div`
+  // position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 10px;
+  background-color: white;
   color: ${colors.backgroundLight};
 `
 const LogoImg = styled.img`
