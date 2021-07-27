@@ -44,7 +44,6 @@ const AnswerWrapper = styled.div`
 const SurveyWrapper = styled.div`
   padding-top: 100px;
   text-align: center;
-  background: grey;
 `
 
 function Survey() {
