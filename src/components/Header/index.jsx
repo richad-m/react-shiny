@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../../utils/style/color'
-
-import LogoShiny from 'src/assets/Logo.png'
+import LogoShiny from '../../assets/logo.png'
 
 const StyledLink = styled(Link)`
   padding: 15px;
@@ -15,6 +14,13 @@ const StyledLink = styled(Link)`
 `
 const Logo = styled.div`
   font-size: 34px;
+  color: black;
+  padding-left: 5px;
+  height: 36.92499542236328px;
+  width: 94.5831298828125px;
+  left: 81.16607666015625px;
+  top: 16.3800048828125px;
+  border-radius: 0px;
 `
 
 const HeaderWrapper = styled.div`
@@ -24,21 +30,34 @@ const HeaderWrapper = styled.div`
   padding-top: 10px;
   color: ${colors.backgroundLight};
 `
-const LogoImg = styled.img``
+const LogoImg = styled.img`
+  height: 57.427490234375px;
+  width: 56.79137420654297px;
+  left: 11.6785888671875px;
+  top: 6.186248779296875px;
+  border-radius: 0px;
+`
+const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
 
+const NavBar = styled.div``
 function Header() {
   return (
     <nav>
       <HeaderWrapper>
-        <LogoImg src={LogoShiny} alt="logo shiny"></LogoImg>
-        <Logo>Shiny</Logo>
-        <div>
+        <LogoWrapper>
+          <LogoImg src={LogoShiny} alt="logo shiny" />
+          <Logo>Shiny</Logo>
+        </LogoWrapper>
+        <NavBar>
           <StyledLink to="/">Accueil</StyledLink>
           <StyledLink to="/freelance">Profils</StyledLink>
           <StyledLink to="/survey/1" $isFullLink>
             Faire le test
           </StyledLink>
-        </div>
+        </NavBar>
       </HeaderWrapper>
     </nav>
   )
