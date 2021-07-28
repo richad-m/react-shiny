@@ -9,7 +9,7 @@ import Error from './components/Error/index'
 import Results from './pages/Results/index'
 import Freelance from './pages/Freelance/index'
 import Footer from './components/Footer/index'
-import { ThemeProvider } from './utils/context'
+import { ThemeProvider, SurveyProvider } from './utils/context'
 import GlobalStyle from './utils/style/GlobalStyle'
 
 ReactDOM.render(
@@ -25,13 +25,15 @@ ReactDOM.render(
           <Route exact path="/">
             <Home />
           </Route>
-          {/* Parametric Route to get questions in the survey */}
-          <Route path="/survey/:questionNumber">
-            <Survey />
-          </Route>
-          <Route path="/results">
-            <Results />
-          </Route>
+          <SurveyProvider>
+            {/* Parametric Route to get questions in the survey */}
+            <Route path="/survey/:questionNumber">
+              <Survey />
+            </Route>
+            <Route path="/results">
+              <Results />
+            </Route>
+          </SurveyProvider>
           <Route path="/freelance">
             <Freelance />
           </Route>

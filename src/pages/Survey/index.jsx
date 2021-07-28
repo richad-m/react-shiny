@@ -2,6 +2,8 @@ import { useParams, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import Loader from '../../utils/Atoms'
+import { useContext } from 'react'
+import { SurveyContext } from '../../utils/context'
 
 //Adding styled-components to add style
 const TitleQuestion = styled.div`
@@ -24,7 +26,7 @@ const Answer = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  &:hover {
+  &:hover &:onclick {
     cursor: pointer;
     background: #f9f9fc;
     border: 2px solid #5843e4;
@@ -60,6 +62,7 @@ function Survey() {
     questionIntNumber === 1 ? 1 : questionIntNumber - 1
   const nextQuestionNumber = questionIntNumber + 1
   const [isDataLoading, setDataLoading] = useState(false)
+  const { answers, setAnswers } = useContext(SurveyContext)
 
   useEffect(() => {
     setDataLoading(true)
