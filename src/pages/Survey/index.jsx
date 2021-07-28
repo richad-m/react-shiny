@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useState, useEffect } from 'react'
 
 const TitleQuestion = styled.div`
   height: 22px;
@@ -49,27 +50,33 @@ const SurveyWrapper = styled.div`
 function Survey() {
   const { questionNumber } = useParams()
   const questionIntNumber = Number(questionNumber)
+  const [surveyData, setSurveyData] = useState({})
   const previousQuestionNumber =
-    questionIntNumber === 1 ? 1 : questionIntNumber + 1
+    questionIntNumber === 1 ? 1 : questionIntNumber - 1
   const nextQuestionNumber = questionIntNumber + 1
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/survey`).then((response) =>
+      response
+        .json()
+        .then(({ surveyData }) => setSurveyData(surveyData))
+        .catch((error) => console.log(error))
+    )
+  }, [])
   return (
     <SurveyWrapper>
       <TitleQuestion>Question {questionNumber}</TitleQuestion>
-      <ContentQuestion>
-        Votre question doit-elle impérativement apparaître en premier dans les
-        résultats de recherche ?
-      </ContentQuestion>
+      <ContentQuestion>{surveyData[questionNumber]}</ContentQuestion>
       <AnswerWrapper>
         <Answer>Oui</Answer>
         <Answer>Non</Answer>
       </AnswerWrapper>
       <div>
-        <Link to={`/survey/${previousQuestionNumber}`}>Précédent </Link>
-        {Number(questionNumber) > 9 ? (
-          <Link to="/results">Résultats </Link>
+        <Link to={`/survey/${previousQuestionNumber}`}>Précédent</Link>
+        {surveyData[questionNumber + 1] ? (
+          <Link to={`/survey/${nextQuestionNumber}`}>Suivant</Link>
         ) : (
-          <Link to={`/survey/${nextQuestionNumber}`}>Suivant </Link>
+          <Link to="/results">Résultats</Link>
         )}
       </div>
     </SurveyWrapper>
