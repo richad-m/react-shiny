@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import DefaultPicture from '../../assets/profile.png'
 import styled from 'styled-components'
-import colors from '../../utils/style/color'
 
 //Styled components definitions
 

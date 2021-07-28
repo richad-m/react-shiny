@@ -17,8 +17,8 @@ ReactDOM.render(
     {/* Router for all paths accessibles from within the website */}
     <Router>
       {/* Global style for all the app */}
-      <GlobalStyle />
       <ThemeProvider>
+        <GlobalStyle />
         <Header />
         {/* Switch to enable first path found */}
         <Switch>

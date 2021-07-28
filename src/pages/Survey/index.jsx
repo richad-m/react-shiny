@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import Loader from '../../utils/Atoms'
 
+//Adding styled-components to add style
 const TitleQuestion = styled.div`
   height: 22px;
   left: 624px;
@@ -13,7 +14,6 @@ const TitleQuestion = styled.div`
   border-bottom: 2px solid #5843e4;
   margin-bottom: 20px;
 `
-
 const Answer = styled.div`
   height: 96px;
   width: 291px;
@@ -49,9 +49,13 @@ const SurveyWrapper = styled.div`
 `
 
 function Survey() {
+  // Retrieving params from the URL as specified in the route
   const { questionNumber } = useParams()
+  // Use it as an int to be incremented / decremented
   const questionIntNumber = Number(questionNumber)
+  // Setting state as an empty object
   const [surveyData, setSurveyData] = useState({})
+  // Previous question should not go below 1
   const previousQuestionNumber =
     questionIntNumber === 1 ? 1 : questionIntNumber - 1
   const nextQuestionNumber = questionIntNumber + 1

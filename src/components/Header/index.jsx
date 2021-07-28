@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import colors from '../../utils/style/color'
 import LogoShiny from '../../assets/logo.png'
 
+// Creating styled-components to add style
 const StyledLink = styled(Link)`
   padding: 15px;
   color: #8186a0;

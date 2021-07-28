@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Loader from '../../utils/Atoms'
 import { useState, useEffect } from 'react'
 
+// Adding some style with styled-components
 const CardContainer = styled.div`
   margin: 0 auto;
   padding-top: 30px;
@@ -43,24 +44,30 @@ function Freelances() {
   const [freelancersList, setFreelancerList] = useState([])
   const [isDataLoading, setDataLoading] = useState(false)
 
+  // Using useEffect to fetch data and animations at any change in Freelances components
   useEffect(() => {
+    // Launching loading animation
     setDataLoading(true)
+    // Fetching data from local API to retrives freelancers
     fetch(`http://localhost:8000/freelances`).then((response) =>
       response
         .json()
         .then(
+          // Storing fetched datas in state
           ({ freelancersList }) => setFreelancerList(freelancersList),
           setDataLoading(false)
         )
         .catch((error) => console.log(error))
     )
   }, [])
+
   return (
     <Container>
       <TitleText>Trouvez votre prestataire</TitleText>
       <SubTitleText>
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </SubTitleText>
+      {/* Displaying animation if data not retrieved yet */}
       {isDataLoading ? (
         <Loader></Loader>
       ) : (
