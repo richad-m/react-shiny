@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
+import Loader from '../../utils/Atoms'
 
 const TitleQuestion = styled.div`
   height: 22px;
@@ -54,19 +55,29 @@ function Survey() {
   const previousQuestionNumber =
     questionIntNumber === 1 ? 1 : questionIntNumber - 1
   const nextQuestionNumber = questionIntNumber + 1
+  const [isDataLoading, setDataLoading] = useState(false)
 
   useEffect(() => {
+    setDataLoading(true)
     fetch(`http://localhost:8000/survey`).then((response) =>
       response
         .json()
-        .then(({ surveyData }) => setSurveyData(surveyData))
+        .then(
+          ({ surveyData }) => setSurveyData(surveyData),
+          setDataLoading(false)
+        )
         .catch((error) => console.log(error))
     )
   }, [])
   return (
     <SurveyWrapper>
       <TitleQuestion>Question {questionNumber}</TitleQuestion>
-      <ContentQuestion>{surveyData[questionNumber]}</ContentQuestion>
+      {isDataLoading ? (
+        <Loader></Loader>
+      ) : (
+        <ContentQuestion>{surveyData[questionNumber]}</ContentQuestion>
+      )}
+
       <AnswerWrapper>
         <Answer>Oui</Answer>
         <Answer>Non</Answer>
