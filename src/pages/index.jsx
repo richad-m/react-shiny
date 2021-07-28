@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom'
 import colors from '../utils/style/color'
 
 const ResumeSVG = styled.img`
-  height: 506px;
-  width: 541px;
-  left: 760px;
-  top: 339px;
-  border-radius: 0px;
+  flex: 1;
 `
 const TestButton = styled(Link)`
   padding: 15px;
@@ -40,9 +36,10 @@ const CatchPhrase = styled.div`
 const Banner = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 3px;
   height: 824px;
-  width: 1313px;
+  width: 100%;
   left: 65px;
   top: 200px;
   border-radius: 0px;

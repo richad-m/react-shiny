@@ -6,23 +6,40 @@ import colors from '../../utils/style/color'
 //Styled components definitions
 
 const CardLabel = styled.span`
-  color: #5843e4;
+  font-family: Trebuchet MS;
+  font-style: normal;
+  font-weight: normal;
   font-size: 22px;
-  font-weight: bold;
+  line-height: 26px;
+  text-align: center;
+  color: #5843e4;
+  margin-bottom: 30px;
 `
 const CardImage = styled.img`
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
+  height: 148px;
+  width: 148px;
+  border-radius: 90px;
+  margin-bottom: 30px;
 `
-const CardTitle = styled.span``
+const CardTitle = styled.span`
+  width: 210px;
+  height: 28px;
+  font-family: Trebuchet MS;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 29px;
+  text-align: center;
+`
 
 const CardWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: 15px;
-  background-color: ${colors.backgroundLight};
+  padding-top: 100px;
+  background: #f9f9fc;
   border-radius: 30px;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
   width: 350px;
   transition: 200ms;
   &:hover {
