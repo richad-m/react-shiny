@@ -29,7 +29,6 @@ const HeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-top: 10px;
-  background-color: white;
   color: ${colors.backgroundLight};
 `
 const LogoImg = styled.img`
