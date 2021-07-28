@@ -20,3 +20,21 @@ export const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   )
 }
+
+//Creating a context survey related
+export const SurveyContext = createContext()
+
+// Creating a survey provider for this context with state & fct
+export const SurveyProvider = ({ children }) => {
+  const [answers, setAnswers] = useState({}) // Setting state with answers
+  // Saving newAnswers by pushing in the state along with answers
+  const saveAnswers = (newAnswers) => {
+    setAnswers({ ...answers, ...newAnswers })
+  }
+
+  return (
+    <SurveyContext.Provider value={{ answers, saveAnswers }}>
+      {children}
+    </SurveyContext.Provider>
+  )
+}
