@@ -65,7 +65,7 @@ function Results() {
   const dataTitles =
     resultsData &&
     resultsData.reduce((stringTitles, resultObject, index) => {
-      const separator = index === resultsData.length ? '' : ','
+      const separator = index === resultsData.length - 1 ? '' : ','
       return `${stringTitles} ${capitalize(resultObject.title)}${separator}`
     }, '')
 
@@ -78,7 +78,7 @@ function Results() {
         <div>
           <TextResult $isResults>{dataTitles}</TextResult>
           <ButtonWrapper>
-            <StyledLink to="/freelance" $isFullLink>
+            <StyledLink to="/freelances" $isFullLink>
               Découvrez nos profils
             </StyledLink>
           </ButtonWrapper>
