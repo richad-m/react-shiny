@@ -1,10 +1,10 @@
 import { useParams, Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
 import Loader from '../../utils/Atoms'
 import { useContext } from 'react'
 import { SurveyContext } from '../../utils/context'
 import colors from '../../utils/style/color'
+import { useFetch } from '../../utils/hooks'
 
 //Adding styled-components to add style
 const TitleQuestion = styled.div`
@@ -39,6 +39,8 @@ const Answer = styled.button`
   &:focus {
     background: ${colors.primary};
     color: ${colors.backgroundLight};
+    border: none;
+    font-weight: bold;
   }
 `
 
@@ -90,46 +92,44 @@ function Survey() {
   // Use it as an int to be incremented / decremented
   const questionIntNumber = Number(questionNumber)
   // Setting state as an empty object
-  const [surveyData, setSurveyData] = useState({})
+  // const [surveyData, setSurveyData] = useState({})
   // Previous question should not go below 1
   const previousQuestionNumber =
     questionIntNumber === 1 ? 1 : questionIntNumber - 1
   const nextQuestionNumber = questionIntNumber + 1
-  const [isDataLoading, setDataLoading] = useState(false)
+  // const [isDataLoading, setDataLoading] = useState(false)
   const { saveAnswers } = useContext(SurveyContext)
 
+  // Function to save answers
   const saveReply = (newAnswer) => {
     saveAnswers({ [questionIntNumber]: newAnswer })
   }
+  // Using custom hooks to retrieve questions from survey api
+  const { data, isLoading, error } = useFetch(`http://localhost:8000/survey`)
+  const { surveyData } = data
 
-  useEffect(() => {
-    setDataLoading(true)
-    fetch(`http://localhost:8000/survey`).then((response) =>
-      response
-        .json()
-        .then(
-          ({ surveyData }) => setSurveyData(surveyData),
-          setDataLoading(false)
-        )
-        .catch((error) => console.log(error))
-    )
-  }, [])
+  if (error) {
+    return <span>Il y a un problème</span>
+  }
+
   return (
     <SurveyWrapper>
       <TitleQuestion>Question {questionNumber}</TitleQuestion>
-      {isDataLoading ? (
+      {isLoading ? (
         <Loader></Loader>
       ) : (
-        <ContentQuestion>{surveyData[questionNumber]}</ContentQuestion>
+        <ContentQuestion>
+          {surveyData && surveyData[questionNumber]}
+        </ContentQuestion>
       )}
 
       <AnswerWrapper>
-        <Answer onClick={() => saveReply(true)}>Oui</Answer>
-        <Answer onClick={() => saveReply(false)}>Non</Answer>
+        <Answer onClick={() => saveReply(1)}>Oui</Answer>
+        <Answer onClick={() => saveReply(0)}>Non</Answer>
       </AnswerWrapper>
       <LinkWrapper>
         <Link to={`/survey/${previousQuestionNumber}`}>Précédent</Link>
-        {surveyData[questionIntNumber + 1] ? (
+        {surveyData && surveyData[questionIntNumber + 1] ? (
           <Link to={`/survey/${nextQuestionNumber}`}>Suivant</Link>
         ) : (
           <Link to="/results">Résultats</Link>

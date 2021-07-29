@@ -39,6 +39,15 @@ const ResultWrapper = styled.div`
   width: 50%;
 `
 
+function queryParams(answers) {
+  const keys = Object.keys(answers)
+  keys.reduce((workingsparams, key, index) => {
+    const isFirstindex = index === 0
+    const separator = isFirstindex ? '' : '&'
+    return workingsparams + separator + keys[key]
+  }, '')
+}
+
 function Results() {
   const { answers } = useContext(SurveyContext)
   console.log(answers)

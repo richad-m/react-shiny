@@ -1,7 +1,7 @@
 import Card from '../../components/Card/index'
 import styled from 'styled-components'
 import Loader from '../../utils/Atoms'
-import { useState, useEffect } from 'react'
+import { useFetch } from '../../utils/hooks'
 
 // Adding some style with styled-components
 const CardContainer = styled.div`
@@ -16,7 +16,6 @@ const CardContainer = styled.div`
 const Container = styled.div`
   width: 100%;
 `
-
 const TitleText = styled.div`
   font-family: Trebuchet MS;
   font-size: 30px;
@@ -27,7 +26,6 @@ const TitleText = styled.div`
   text-align: center;
   margin-bottom: 30px;
 `
-
 const SubTitleText = styled.div`
   font-family: Trebuchet MS;
   font-size: 20px;
@@ -41,26 +39,9 @@ const SubTitleText = styled.div`
 `
 
 function Freelances() {
-  const [freelancersList, setFreelancerList] = useState([])
-  const [isDataLoading, setDataLoading] = useState(false)
-
-  // useEffect to fetch data and animations at any change in Freelances component
-  useEffect(() => {
-    // Launching loading animation
-    console.log('recherche des profils en cours')
-    setDataLoading(true)
-    // Fetching data from local API to retrives freelancers
-    fetch(`http://localhost:8000/freelances`).then((response) =>
-      response
-        .json()
-        .then(
-          // Storing fetched datas in state
-          ({ freelancersList }) => setFreelancerList(freelancersList),
-          setDataLoading(false)
-        )
-        .catch((error) => console.log(error))
-    )
-  }, [])
+  //Custome hook to fetch data
+  const { isLoading, data } = useFetch('http://localhost:8000/freelances')
+  const { freelancersList } = data
 
   return (
     <Container>
@@ -69,7 +50,7 @@ function Freelances() {
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </SubTitleText>
       {/* Displaying animation if data has not been retrieved yet */}
-      {isDataLoading ? (
+      {isLoading ? (
         <Loader></Loader>
       ) : (
         <CardContainer>
