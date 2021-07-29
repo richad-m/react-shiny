@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { SurveyContext } from '../../utils/context'
+import { useContext } from 'react'
 
 const TextResult = styled.div`
   font-family: Comfortaa;
@@ -38,6 +40,8 @@ const ResultWrapper = styled.div`
 `
 
 function Results() {
+  const { answers } = useContext(SurveyContext)
+  console.log(answers)
   return (
     <ResultWrapper>
       <TextResult>Les compétences dont vous avez besoin :</TextResult>

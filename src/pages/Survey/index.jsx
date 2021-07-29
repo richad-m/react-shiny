@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Loader from '../../utils/Atoms'
 import { useContext } from 'react'
 import { SurveyContext } from '../../utils/context'
+import colors from '../../utils/style/color'
 
 //Adding styled-components to add style
 const TitleQuestion = styled.div`
@@ -16,23 +17,29 @@ const TitleQuestion = styled.div`
   border-bottom: 2px solid #5843e4;
   margin-bottom: 20px;
 `
-const Answer = styled.div`
+const Answer = styled.button`
   height: 96px;
+  background: white;
   width: 291px;
   left: 399px;
   top: 491px;
   border-radius: 31px;
+  border: 2px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  &:hover &:onclick {
+  &:hover {
     cursor: pointer;
     background: #f9f9fc;
     border: 2px solid #5843e4;
     box-sizing: border-box;
     border-radius: 31px;
     font-weight: bold;
+  }
+  &:focus {
+    background: #5843e4;
+    color: white;
   }
 `
 
@@ -49,7 +56,35 @@ const SurveyWrapper = styled.div`
   padding-top: 100px;
   text-align: center;
 `
+// const ReplyBox = styled.button`
+//   border: none;
+//   height: 100px;
+//   width: 300px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: ${colors.backgroundLight};
+//   border-radius: 30px;
+//   cursor: pointer;
+//   box-shadow: ${(props) =>
+//     props.isSelected ? `0px 0px 0px 2px ${colors.primary} inset` : 'none'};
+//   &:first-child {
+//     margin-right: 15px;
+//   }
+//   &:last-of-type {
+//     margin-left: 15px;
+//   }
+// `
 
+const LinkWrapper = styled.div`
+  padding-top: 30px;
+  & a {
+    color: black;
+  }
+  & a:first-of-type {
+    margin-right: 20px;
+  }
+`
 function Survey() {
   // Retrieving params from the URL as specified in the route
   const { questionNumber } = useParams()
@@ -62,7 +97,11 @@ function Survey() {
     questionIntNumber === 1 ? 1 : questionIntNumber - 1
   const nextQuestionNumber = questionIntNumber + 1
   const [isDataLoading, setDataLoading] = useState(false)
-  const { answers, setAnswers } = useContext(SurveyContext)
+  const { answers, saveAnswers } = useContext(SurveyContext)
+
+  const saveReply = (newAnswer) => {
+    saveAnswers({ [questionIntNumber]: newAnswer })
+  }
 
   useEffect(() => {
     setDataLoading(true)
@@ -86,17 +125,17 @@ function Survey() {
       )}
 
       <AnswerWrapper>
-        <Answer>Oui</Answer>
-        <Answer>Non</Answer>
+        <Answer onClick={() => saveReply(true)}>Oui</Answer>
+        <Answer onClick={() => saveReply(false)}>Non</Answer>
       </AnswerWrapper>
-      <div>
+      <LinkWrapper>
         <Link to={`/survey/${previousQuestionNumber}`}>Précédent</Link>
-        {surveyData[questionNumber + 1] ? (
+        {surveyData[questionIntNumber + 1] ? (
           <Link to={`/survey/${nextQuestionNumber}`}>Suivant</Link>
         ) : (
           <Link to="/results">Résultats</Link>
         )}
-      </div>
+      </LinkWrapper>
     </SurveyWrapper>
   )
 }
