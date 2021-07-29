@@ -43,8 +43,8 @@ const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
 `
-
 const NavBar = styled.div``
+
 function Header() {
   return (
     <nav>
@@ -55,7 +55,7 @@ function Header() {
         </LogoWrapper>
         <NavBar>
           <StyledLink to="/">Accueil</StyledLink>
-          <StyledLink to="/freelance">Profils</StyledLink>
+          <StyledLink to="/freelances">Nos profils</StyledLink>
           <StyledLink to="/survey/1" $isFullLink>
             Faire le test
           </StyledLink>

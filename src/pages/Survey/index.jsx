@@ -19,10 +19,8 @@ const TitleQuestion = styled.div`
 `
 const Answer = styled.button`
   height: 96px;
-  background: white;
+  background: ${colors.backgroundLight};
   width: 291px;
-  left: 399px;
-  top: 491px;
   border-radius: 31px;
   border: 2px solid black;
   display: flex;
@@ -31,15 +29,16 @@ const Answer = styled.button`
   margin-left: 10px;
   &:hover {
     cursor: pointer;
-    background: #f9f9fc;
-    border: 2px solid #5843e4;
+    background: ${colors.primary};
+    color: ${colors.backgroundLight};
+    border: 2px solid ${colors.primary};
     box-sizing: border-box;
     border-radius: 31px;
     font-weight: bold;
   }
   &:focus {
-    background: #5843e4;
-    color: white;
+    background: ${colors.primary};
+    color: ${colors.backgroundLight};
   }
 `
 
@@ -97,7 +96,7 @@ function Survey() {
     questionIntNumber === 1 ? 1 : questionIntNumber - 1
   const nextQuestionNumber = questionIntNumber + 1
   const [isDataLoading, setDataLoading] = useState(false)
-  const { answers, saveAnswers } = useContext(SurveyContext)
+  const { saveAnswers } = useContext(SurveyContext)
 
   const saveReply = (newAnswer) => {
     saveAnswers({ [questionIntNumber]: newAnswer })

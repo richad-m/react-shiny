@@ -7,7 +7,7 @@ import Survey from './pages/Survey/index'
 import Header from './components/Header/index'
 import Error from './components/Error/index'
 import Results from './pages/Results/index'
-import Freelance from './pages/Freelance/index'
+import Freelances from './pages/Freelances/index'
 import Footer from './components/Footer/index'
 import { ThemeProvider, SurveyProvider } from './utils/context'
 import GlobalStyle from './utils/style/GlobalStyle'
@@ -18,14 +18,14 @@ ReactDOM.render(
     <Router>
       {/* Global style for all the app */}
       <ThemeProvider>
-        <GlobalStyle />
-        <Header />
-        {/* Switch to enable first path found */}
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <SurveyProvider>
+        <SurveyProvider>
+          <GlobalStyle />
+          <Header />
+          {/* Switch to enable first path found */}
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
             {/* Parametric Route to get questions in the survey */}
             <Route path="/survey/:questionNumber">
               <Survey />
@@ -33,16 +33,16 @@ ReactDOM.render(
             <Route path="/results">
               <Results />
             </Route>
-          </SurveyProvider>
-          <Route path="/freelance">
-            <Freelance />
-          </Route>
-          <Route>
-            {/* Error route in cas no routes matches any path */}
-            <Error />
-          </Route>
-        </Switch>
-        <Footer />
+            <Route path="/freelances">
+              <Freelances />
+            </Route>
+            <Route>
+              {/* Error route in cas no routes matches any path */}
+              <Error />
+            </Route>
+          </Switch>
+          <Footer />
+        </SurveyProvider>
       </ThemeProvider>
     </Router>
   </React.StrictMode>,

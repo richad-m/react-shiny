@@ -17,7 +17,6 @@ const TestButton = styled(Link)`
     props.$isFullLink &&
     `color: white; border-radius: 30px; background-color: ${colors.primary};`}
 `
-
 const CatchPhrase = styled.div`
   height: 249px;
   width: 552px;
@@ -32,7 +31,6 @@ const CatchPhrase = styled.div`
   letter-spacing: 0em;
   text-align: left;
 `
-
 const Banner = styled.div`
   display: flex;
   align-items: center;

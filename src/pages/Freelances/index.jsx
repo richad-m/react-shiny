@@ -44,9 +44,10 @@ function Freelances() {
   const [freelancersList, setFreelancerList] = useState([])
   const [isDataLoading, setDataLoading] = useState(false)
 
-  // Using useEffect to fetch data and animations at any change in Freelances components
+  // useEffect to fetch data and animations at any change in Freelances component
   useEffect(() => {
     // Launching loading animation
+    console.log('recherche des profils en cours')
     setDataLoading(true)
     // Fetching data from local API to retrives freelancers
     fetch(`http://localhost:8000/freelances`).then((response) =>
@@ -67,7 +68,7 @@ function Freelances() {
       <SubTitleText>
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </SubTitleText>
-      {/* Displaying animation if data not retrieved yet */}
+      {/* Displaying animation if data has not been retrieved yet */}
       {isDataLoading ? (
         <Loader></Loader>
       ) : (

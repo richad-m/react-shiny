@@ -1,6 +1,7 @@
 import colors from '../utils/style/color'
 import styled, { keyframes } from 'styled-components'
 
+// Creating styled-component for loading animation
 const rotate = keyframes`
     from {
         transform: rotate(0deg);
@@ -10,7 +11,6 @@ const rotate = keyframes`
     transform: rotate(360deg);
     }
 `
-
 const Loader = styled.div`
   margin: 0 auto;
   padding: 10px;
