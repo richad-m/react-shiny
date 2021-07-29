@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { SurveyContext } from '../../utils/context'
 import { useContext } from 'react'
+import { useFetch } from '../../utils/hooks'
+import Loader from '../../utils/Atoms'
 
 const TextResult = styled.div`
   font-family: Comfortaa;
@@ -38,43 +40,61 @@ const ResultWrapper = styled.div`
   padding-top: 50px;
   width: 50%;
 `
-
+// Using a function to pass answers as string to the api
 function queryParams(answers) {
   const keys = Object.keys(answers)
-  keys.reduce((workingsparams, key, index) => {
+  return keys.reduce((workingparams, key, index) => {
     const isFirstindex = index === 0
     const separator = isFirstindex ? '' : '&'
-    return workingsparams + separator + keys[key]
+    return `${workingparams}${separator}a${index + 1}=${answers[key]}`
   }, '')
+}
+// Using a function to capitalize Titles from the answers fetched to the api
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 }
 
 function Results() {
-  const { answers } = useContext(SurveyContext)
-  console.log(answers)
+  const { isLoading, answers } = useContext(SurveyContext)
+  // Using custom fetch to retrieve answers from API
+  const { data } = useFetch(
+    `http://localhost:8000/results/?${queryParams(answers)}`
+  )
+  const resultsData = data.resultsData
+  // Make a string out of titles from resultsData
+  const dataTitles =
+    resultsData &&
+    resultsData.reduce((stringTitles, resultObject, index) => {
+      const separator = index === resultsData.length ? '' : ','
+      return `${stringTitles} ${capitalize(resultObject.title)}${separator}`
+    }, '')
+
   return (
     <ResultWrapper>
       <TextResult>Les compétences dont vous avez besoin :</TextResult>
-      <TextResult $isResults>UX Design, frontend, backend</TextResult>
-      <ButtonWrapper>
-        <StyledLink to="/freelance" $isFullLink>
-          Découvrez nos profils
-        </StyledLink>
-      </ButtonWrapper>
-      <DetailedResults $isTitle>UX Design</DetailedResults>
-      <DetailedResults>
-        Le rôle de l’UX est de Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-      </DetailedResults>
-      <DetailedResults $isTitle>Frontend</DetailedResults>
-      <DetailedResults>
-        Le rôle de l’UX est de Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-      </DetailedResults>
-      <DetailedResults $isTitle>Backend</DetailedResults>
-      <DetailedResults>
-        Le rôle de l’UX est de Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-      </DetailedResults>
+      {isLoading ? (
+        <Loader> </Loader>
+      ) : (
+        <div>
+          <TextResult $isResults>{dataTitles}</TextResult>
+          <ButtonWrapper>
+            <StyledLink to="/freelance" $isFullLink>
+              Découvrez nos profils
+            </StyledLink>
+          </ButtonWrapper>
+          {resultsData &&
+            resultsData.map((result) => {
+              return (
+                <div>
+                  <DetailedResults $isTitle>
+                    {capitalize(result.title)}
+                  </DetailedResults>
+                  <DetailedResults>{result.description}</DetailedResults>
+                </div>
+              )
+            })}
+        </div>
+      )}
     </ResultWrapper>
   )
 }
