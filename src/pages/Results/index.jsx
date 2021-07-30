@@ -41,7 +41,7 @@ const ResultWrapper = styled.div`
   width: 50%;
 `
 // Using a function to pass answers as string to the api
-function queryParams(answers) {
+export function queryParams(answers) {
   const keys = Object.keys(answers)
   return keys.reduce((workingparams, key, index) => {
     const isFirstindex = index === 0
