@@ -1,6 +1,6 @@
 # React application
 
-This is a react based application initialized with Create-react-app. I made this application to learn React along with a course on OpenClassRoom. 
+This is a react based application initialized with Create-react-app. I made this application to learn React along with a course on OpenClassRooms. 
 
 I made it to learn about React, it uses : 
 
